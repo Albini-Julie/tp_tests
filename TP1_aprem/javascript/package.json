@@ -1,0 +1,16 @@
+{
+  "name": "tp1_aprem",
+  "version": "1.0.0",
+  "main": "remise.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jest": "^30.0.0"
+  }
+}
