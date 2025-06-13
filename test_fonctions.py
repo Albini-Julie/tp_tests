@@ -30,11 +30,21 @@ class TestFonctions(unittest.TestCase):
 
     def test_valider_email_sans_arobase(self):
         """Test avec un email sans @"""
-        self.assertFalse(valider_email("testexample.com"))
+        with self.assertRaises(ValueError) as context:
+            valider_email('test-example.com')
+        self.assertEqual(str(context.exception), "Vous devez entrer une adresse mail valide contenant un @")
     
     def test_valider_email_sans_point(self):
         """Test avec un email sans point"""
-        self.assertFalse(valider_email("test@example"))
+        with self.assertRaises(ValueError) as context:
+            valider_email('test@example-com')
+        self.assertEqual(str(context.exception), "Vous devez entrer une adresse mail valide contenant un .")
+    
+    def test_valider_email_sans_point_sans_arobase(self):
+        """Test avec un email sans point et sqans arobase"""
+        with self.assertRaises(ValueError) as context:
+            valider_email('test-example-com')
+        self.assertEqual(str(context.exception), "Vous devez entrer une adresse mail valide contenant un . et un @")
     
     def test_calculer_moyenne_liste_normale(self):
         """Test avec une liste de notes normales"""
@@ -72,6 +82,16 @@ class TestFonctions(unittest.TestCase):
     def test_motdepasse_moins8(self):
         """test avec 'Coucouto'"""
         self.assertFalse(mot_de_passe("Coucouto"))
+    def test_additionner_type_non_ok(self):
+        """Test addition avec un type non valide"""
+        with self.assertRaises(TypeError) as context:
+            additionner(2, 'coicou')
+        self.assertEqual(str(context.exception), "les nombres doivent être de type integer ou float")
+    def test_diviser_non_ok(self):
+        """Test division avec un type non valide"""
+        with self.assertRaises(TypeError) as context:
+            diviser(12, 'coucou')
+        self.assertEqual(str(context.exception), "les nombres doivent être de type integer ou float")
 
 
  # À COMPLÉTER : Ajoutez vos tests ici

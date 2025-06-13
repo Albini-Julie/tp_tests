@@ -1,6 +1,9 @@
 import re
 
 def additionner(a, b):
+    """Verification des types"""
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError(f"les nombres doivent être de type integer ou float")
     """Additionne deux nombres"""
     return a + b
 
@@ -10,10 +13,12 @@ def est_pair(nombre):
 
 def valider_email(email):
     """Valide un email simple (doit contenir @ et .)"""
+    if "@" not in email and "." not in email:
+        raise ValueError("Vous devez entrer une adresse mail valide contenant un . et un @")
     if "@" not in email:
-        return False
+        raise ValueError("Vous devez entrer une adresse mail valide contenant un @")
     if "." not in email:
-        return False
+        raise ValueError("Vous devez entrer une adresse mail valide contenant un .")
     return True
 
 def calculer_moyenne(notes):
@@ -27,6 +32,8 @@ def convertir_temperature(celsius):
     return (celsius * 9/5) + 32
 
 def diviser(a, b):
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError(f"les nombres doivent être de type integer ou float")
     """Divise deux nombres et retourne le résultat"""
     return a / b
 
