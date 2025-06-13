@@ -92,6 +92,11 @@ class TestFonctions(unittest.TestCase):
         with self.assertRaises(TypeError) as context:
             diviser(12, 'coucou')
         self.assertEqual(str(context.exception), "les nombres doivent être de type integer ou float")
+    def test_calculer_moyenne_type_non_valide(self):
+        """Test calcul_moyenne avec un type non iterable"""
+        with self.assertRaises(TypeError) as context:
+            calculer_moyenne(123)  # Un entier, pas une liste ni un tuple
+        self.assertEqual(str(context.exception), "Les notes doivent être contenues dans une liste ou un tuple")
 
 
  # À COMPLÉTER : Ajoutez vos tests ici

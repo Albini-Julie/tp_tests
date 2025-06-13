@@ -23,6 +23,9 @@ def valider_email(email):
 
 def calculer_moyenne(notes):
     """Calcule la moyenne d'une liste de notes"""
+    if not isinstance(notes, (list, tuple)):
+        raise TypeError("Les notes doivent être contenues dans une liste ou un tuple")
+    """Calcule la moyenne d'une liste de notes"""
     if len(notes) == 0:
         return 0
     return sum(notes) / len(notes)
