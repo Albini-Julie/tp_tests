@@ -1,0 +1,40 @@
+TP1 - tests unitaires
+
+J'ai implementé une fonction qui calcule un prix remisé. La fonction reçoit le prix de base et la 
+remise à appliquer en pourcentage.
+
+Quels types de tests avez-vous choisis ?
+
+1) Dans un premier temps j'ai réalisé un test "Happy path" avec un prix autorisé (20) et un pourcentage autorisé (50%).
+Le résultat attendu est 10.
+
+2) Les deux tests suivant sont deux "tests aux limites" avec un prix de 20 pour chaque, mais un pourcentage de 0%
+pour l'un et 100% pour l'autre. Les résultats attendus sont respectivement 20 et 0.
+
+3) Ensuite je teste les types des paramètres de la fonction, avec un prix qui est une string et un pourcentage de 50%,
+puis un prix de 20 et un pourcentage qui est une string. Les deux tests doivent retourner une erreur de types et une
+chaine de caractère décrivant l'erreur et comment la solutionner.
+
+4) Enfin on teste les valeurs de prix et pourcentages, avec un test qui contient un prix inférieur à 0 et un pourcentage
+de 50%, un autre qui contient un pourcentage négatif et un prix de 20, et un dernier test qui contient un prix de 20
+et un pourcentage de 101%.
+Tous ces tests retournent une erreur de valeur et un message d'erreur indiquant le contenu de cette dernière, comment
+la solutionner.
+
+Pourquoi ces langages ?
+
+J'ai pris le langage Python car il s'agit d'un langage populaire chez les développeurs et que souhaitais continuer
+de m'entrainer à réaliser des tests dessus.
+J'ai choisi Javascript car il s'agit d'un langage que j'utilise beaucoup mais sur lequel je n'ai pas l'habitude de faire
+des tests et je voulais donc m'exercer.
+
+Ce que montrent vos rapports 
+
+On peut voir que tous les tests sont passés et que les résultats de ceux qui provoquent des erreurs ont bien été 
+anticipés. Ainsi la fonction fonctionne, répond bien aux tests prévus, et les tests testent tous les cas.
+
+Comment avez-vous structuré votre code pour le rendre testable ?
+
+Dans les deux cas de langages, on a un fichier qui contient la fonction "remise", et un autre fichier qui contient les tests
+unitaires de la fonction. Ainsi on a une fragmentation du code qui permet sa maintenabilité et sa meilleure 
+compréhension.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1749820743625" clover="3.2.0">
-  <project timestamp="1749820743625" name="All files">
+<coverage generated="1749823588968" clover="3.2.0">
+  <project timestamp="1749823588968" name="All files">
     <metrics statements="10" coveredstatements="10" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1" elements="21" coveredelements="21" complexity="0" loc="10" ncloc="10" packages="1" files="1" classes="1"/>
     <file name="remise.js" path="C:\Users\julie\Documents\Metodo_tests\tp_tests\TP1_aprem\javascript\remise.js">
       <metrics statements="10" coveredstatements="10" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
