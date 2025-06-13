@@ -63,6 +63,15 @@ class TestFonctions(unittest.TestCase):
         """Division par zéro doit lever une erreur"""
         with self.assertRaises(ZeroDivisionError):
             diviser(12, 0)
+    def test_motdepasse_ok(self):
+        """test avec 'Coucoutoi2'"""
+        self.assertTrue(mot_de_passe("Coucoutoi2"))
+    def test_motdepasse_sanschiffre(self):
+        """test avec 'Coucoutoi'"""
+        self.assertFalse(mot_de_passe("Coucoutoi"))
+    def test_motdepasse_moins8(self):
+        """test avec 'Coucouto'"""
+        self.assertFalse(mot_de_passe("Coucouto"))
 
 
  # À COMPLÉTER : Ajoutez vos tests ici

@@ -1,3 +1,5 @@
+import re
+
 def additionner(a, b):
     """Additionne deux nombres"""
     return a + b

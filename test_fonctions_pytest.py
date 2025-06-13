@@ -1,4 +1,4 @@
-from fonctions import additionner, est_pair, valider_email, calculer_moyenne, convertir_temperature, diviser
+from fonctions import additionner, est_pair, valider_email, calculer_moyenne, convertir_temperature, diviser, mot de passe
 
 def test_additionner_cas_positif():
     """Test addition avec nombres positifs"""
@@ -50,3 +50,12 @@ def test_diviser_zero():
     """Test 12 / 6 doit retourner 2"""
     with pytest.raises(ZeroDivisionError):
         diviser(10, 0)
+def test_motdepasse_ok():
+    """test avec 'Coucoutoi2'"""
+    assert mot_de_passe("Coucoutoi2")
+def test_motdepasse_sanschiffre():
+    """test avec 'Coucoutoi'"""
+    assert mot_de_passe("Coucoutoi")
+def test_motdepasse_moins8():
+    """test avec 'Coucouto'"""
+    assert mot_de_passe("Coucouto")
