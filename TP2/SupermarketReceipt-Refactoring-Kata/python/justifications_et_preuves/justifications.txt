@@ -1,0 +1,64 @@
+# Liste des doublures utilisées
+
+    ## FakeCatalog :
+
+    Pourquoi ? Parce qu’on ne veut pas dépendre d’un vrai catalogue externe, qui pourrait être lent, changer, ou compliqué à configurer.
+
+    Avantage : Cela garantit que les tests sont rapides, prévisibles, et isolés.
+
+    Exemple : Simule les prix et produits sans accès à une base réelle.
+
+    ## Mock Receipt :
+
+    Pourquoi ? Pour vérifier que les remises sont bien appliquées, sans tester l’implémentation de Receipt qui est testée séparément.
+
+    Avantage : Permet de se concentrer sur la logique d’application des offres, et de s’assurer que la méthode add_discount est appelée avec les bons paramètres.
+
+# Liste de quelques tests utilisées
+
+    ## Test de l’ajout d’un article et de la quantité (test_add_item_and_quantity)
+
+    Pourquoi ? Ce test vérifie que le panier gère correctement l’ajout d’articles, que ce soit en ajoutant un produit une première fois ou en augmentant sa quantité.
+
+    Ce qu’on gagne : Il garantit que la base même de la gestion du panier fonctionne. Sans ça, aucun calcul de prix ou de remise ne marcheraient. 
+
+    ## Test de l’offre “3 pour 2” (test_handle_three_for_two_offer)
+
+    Pourquoi ? Le test assure que pour trois articles, un seul est offert.
+
+    Ce qu’on gagne : On s’assure que le calcul de remise selon la quantité fonctionne bien, en particulier que la remise est appliquée une seule fois par trois articles.
+
+    ## Test de l’offre “2 pour un montant fixe” (test_handle_two_for_amount_offer)
+
+    Pourquoi ? Ce test valide que lorsqu’un produit a une promotion “2 articles pour un prix total réduit”, le calcul de la remise est juste.
+
+    Exemple : Pour deux pommes normalement à 1€ chacune, l’offre peut être “2 pour 1€” (au lieu de 2€). Le test vérifie que la remise est bien de -1€.
+
+    Ce qu’on gagne : Assurance que la remise est correcte.
+
+    ## Test de l’offre “5 pour un montant fixe” (test_handle_five_for_amount_offer)
+
+    Pourquoi ? Plus complexe que la précédente, cette offre nécessite de calculer la remise quand le client achète plus de la quantité minimale (ici 5 articles).
+
+    Ce qu’on gagne : Garantie que la remise s’applique plusieurs fois si la quantité dépasse la base (exemple 6 articles, la remise s’applique sur 5, le 6e est au prix normal).
+
+    ## Test de la remise de 10% (test_handle_ten_percent_discount)
+
+    Pourquoi ? Ce test vérifie que la remise est bien calculée et ajoutée dans le ticket.
+
+    Ce qu’on gagne : On vérifie la précision du calcul de remise en pourcentage.
+
+    ## Test sans aucune offre (test_handle_offers_with_no_offer)
+
+    Pourquoi ? Il vérifie que si aucun produit n’a d’offre, aucune remise ne s’applique.
+
+
+# Que gagne t-on ?
+
+- Tests isolés et rapides : Pas besoin de lancer toute l’application ou d’interagir avec une vraie base de données.
+
+- Confiance dans la qualité du code : On détecte rapidement quand une offre n’est plus appliquée correctement.
+
+- Maintenance facilitée : Les tests bien ciblés permettent de localiser facilement les bugs.
+
+- Documentation vivante : Les tests montrent comment la logique métier (offres, remises) doit fonctionner.
