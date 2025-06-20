@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, Mock, mock_open
+from unittest.mock import patch, Mock, mock_open, call
 from weather_service import get_temperature, save_weather_report
 import requests  # Nécessaire pour RequestException
 
@@ -74,48 +74,83 @@ class TestWeather(unittest.TestCase):
                 'units': 'metric'
             }
         )
+    @patch('weather_service.requests.get')
+    def test_multiple_cities(self, mock_get):
+        """Test plusieurs villes avec une seule méthode"""
+
+        cities_and_temps = [
+        ("Paris", 25.0),
+        ("Londres", 18.5),
+        ("Tokyo", 30.2)
+        ]
+
+        for city, expected_temp in cities_and_temps:
+            with self.subTest(city=city):
+                # Configure le mock pour chaque ville
+                fake_response = Mock()
+                fake_response.status_code = 200
+                fake_response.json.return_value = {"main": {"temp": expected_temp}}
+                mock_get.return_value = fake_response
+
+                # Appelle la fonction
+                result = get_temperature(city)
+
+                # Vérifie le résultat
+                self.assertEqual(result, expected_temp)
+
+                # Vérifie que l'appel API a été fait avec les bons paramètres
+                mock_get.assert_called_with(
+                    "http://api.openweathermap.org/data/2.5/weather",
+                    params={
+                        'q': city,
+                        'appid': 'fake_api_key',
+                        'units': 'metric'
+                    }
+                )
 
 class TestWeatherReport(unittest.TestCase):
 
     def setUp(self):
-        # Prépare des données communes si besoin
         self.city = "Paris"
-        self.fixed_date = "2025-06-20T15:00:00"
+        self.expected_temp = 20.5
+        self.fixed_date = "2024-01-01T12:00:00"
+        self.expected_entry = {
+            "city": self.city,
+            "temperature": self.expected_temp,
+            "timestamp": self.fixed_date
+        }
 
     @patch('weather_service.datetime')
     @patch('builtins.open', new_callable=mock_open, read_data='[]')
     @patch('weather_service.get_temperature')
     def test_save_weather_report_success(self, mock_get_temp, mock_file, mock_datetime):
-        """Test sauvegarde rapport météo - EXERCICE PRINCIPAL"""
+        """Test sauvegarde rapport météo - succès"""
 
-        # Configure mock_get_temp pour retourner 20.5
-        mock_get_temp.return_value = 20.5
+        # Configure les mocks
+        mock_get_temp.return_value = self.expected_temp
+        mock_datetime.now.return_value.isoformat.return_value = self.fixed_date
 
-        # Configure mock_datetime.now().isoformat() pour retourner une date fixe
-        mock_now = Mock()
-        mock_now.isoformat.return_value = self.fixed_date
-        mock_datetime.now.return_value = mock_now
-
-        # Appelle la fonction à tester
+        # Appelle la fonction
         result = save_weather_report(self.city)
 
-        # Vérifie que le résultat est True
+        # Vérifie le résultat
         self.assertTrue(result)
 
-        # Vérifie que get_temperature a été appelé avec "Paris"
+        # Vérifie que get_temperature a bien été appelé avec "Paris"
         mock_get_temp.assert_called_once_with(self.city)
 
-        # Vérifie que le fichier a été ouvert en lecture puis en écriture
-        expected_calls = [unittest.mock.call('weather_log.json', 'r'),
-                          unittest.mock.call('weather_log.json', 'w')]
-        self.assertEqual(mock_file.call_args_list, expected_calls)
+        # Vérifie que open a été appelé en lecture puis en écriture
+        mock_file.assert_any_call('weather_log.json', 'r')
+        mock_file.assert_any_call('weather_log.json', 'w')
 
-        # Vérifie que le contenu écrit dans le fichier contient la bonne info
+        # Concatène tous les contenus écrits dans le fichier
         handle = mock_file()
-        # Le handle.write doit avoir été appelé, vérifie que les données JSON contiennent la bonne date et température
-        written_data = "".join(call.args[0] for call in handle.write.call_args_list)
+        written_data = ''.join(call.args[0] for call in handle.write.call_args_list)
+
+        # Vérifie que les données attendues sont bien présentes
+        self.assertIn(self.city, written_data)
+        self.assertIn(str(self.expected_temp), written_data)
         self.assertIn(self.fixed_date, written_data)
-        self.assertIn(str(20.5), written_data)
 
 
 if __name__ == '__main__':
