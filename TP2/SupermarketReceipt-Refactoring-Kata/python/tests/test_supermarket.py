@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pytest
 
 from model_objects import Product, SpecialOfferType, ProductUnit
@@ -30,7 +34,3 @@ def test_ten_percent_discount():
     assert 1.99 == receipt_item.price
     assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
     assert 2.5 == receipt_item.quantity
-
-def test_toothbrush():
-    """Tester les brosses à dent"""
-    fake_response = Mock()
