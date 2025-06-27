@@ -53,6 +53,19 @@ En ignorant ces lignes inutiles et en ajoutant des tests.
    Un nouveau développeur peut-il facilement contribuer ?
    --> Oui car tout est bien organisé en terme de structure et de procédure + compréhensible
 
+8| Questions de réflexion finale
+
+1.  Organisation : Quels avantages voyez-vous à cette structure par rapport à un projet mal organisé ?
+    --> Plus clair, plus facile à prendre en main, plus maintenable
+2.  Automatisation : Comment ces outils facilitent-ils le travail en équipe ?
+    --> tout le monde à la même manière de faire, tout le monde comprend ce que chacun à fait et peut être autonome
+3.  Couverture : Un taux de couverture élevé garantit-il un code sans bugs ? Pourquoi ?
+    --> Non car une couverture élévé ne veut pas dire que tous les cas sont envisagés, mais qu'une bonne partie le sont ce qui limite les risques de bugs.
+4.  Intégration continue : Comment GitHub Actions peut-il prévenir les régressions ?
+    --> Car il permet une vérification stricte du code à chaque nouvelle évolution
+5.  Maintenance : Comment cette organisation facilite-t-elle l'ajout de nouvelles fonctionnalités ?
+    --> Car elle est claire ce qui permet d'ajouter rapidement et facilement une nouvelle fonctionnalités.
+
 # Projet Bibliothèque
 
 Une application de gestion de livres, utilisateurs et emprunts, avec couverture de tests automatisés.
