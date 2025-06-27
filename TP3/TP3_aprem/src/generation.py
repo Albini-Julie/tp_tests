@@ -1,6 +1,6 @@
 def generation(prenom, nom, ville, email):
     if not prenom:
-        raise ValueError("Vous devez entrer un prénom")
+        raise ValueError("Vous devez entrer un prenom")
     if not nom:
         raise ValueError("Vous devez entrer un nom")
     if not ville:
@@ -14,7 +14,7 @@ def generation(prenom, nom, ville, email):
     local, sep, domaine = email.partition("@")
 
     if ".." in local:
-        raise ValueError("Vous devez entrer un email valide ne contenant pas deux . consécutifs")
+        raise ValueError("Vous devez entrer un email valide ne contenant pas deux . consecutifs")
     if local.startswith("."):
         raise ValueError("L'email ne peut pas commencer pas un point")
     if local.endswith("."):
@@ -25,7 +25,7 @@ def generation(prenom, nom, ville, email):
     if "." not in domaine:
         raise ValueError("Vous devez entrer un nom de domaine valide contenant un .")
     if ".." in domaine:
-        raise ValueError("Vous devez entrer un nom de domaine valide ne contenant pas deux . consécutifs")
+        raise ValueError("Vous devez entrer un nom de domaine valide ne contenant pas deux . consecutifs")
     if domaine.startswith("."):
         raise ValueError("Le nom de domaine ne peut pas commencer pas un point")
     if domaine.endswith("."):
@@ -34,5 +34,5 @@ def generation(prenom, nom, ville, email):
         raise ValueError("Le nom de domaine ne peut pas faire plus de 64 caractères")
 
     return (
-        f"Bonjour {prenom} {nom} de {ville}, votre inscription a bien été prise en compte à l'addresse mail suivante : {email}"
+        f"Bonjour {prenom} {nom} de {ville}, votre inscription a bien ete prise en compte a l'addresse mail suivante : {email}"
     )
