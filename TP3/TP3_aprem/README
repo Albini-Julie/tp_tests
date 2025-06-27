@@ -1,0 +1,29 @@
+1 | Les étapes TDD suivies
+
+--> J’ai commencé par définir les résultats prévus de la fonction generation via des tests unitaires, en incluant des cas valides et invalides.
+
+--> Ensuite, j’ai développé la fonction generation pour faire passer ces tests.
+
+--> Une fois que tous les tests passaient, j’ai amélioré le code pour qu’il soit plus propre, lisible, et maintenable.
+
+--> J’ai ajouté des tests d’approbation qui comparent la sortie avec un fichier qui contient le message attendu.
+
+2 | Le choix des tests d’approbation
+
+--> J’ai choisi d’utiliser des tests d’approbation pour valider le message, car ce dernier est un texte avec plusieurs informations formatées (nom, prénom, mail, ville).
+
+--> Les tests classiques vérifient des conditions simples comme par exemple la validité de l'adresse mail, et les tests d’approbation permettent quant à eux de s'assurer que le message final reste le même.
+
+3 | L’organisation du projet de test
+
+--> Le code source est placé dans un dossier src, avec un fichier generation.py qui contient la fonction à tester.
+
+--> Les tests sont dans un dossier séparé tests, ce qui permet de bien distinguer la logique métier des tests.
+
+4 | Les limites rencontrées
+
+--> Il existe beaucoup de règles (caractères autorisés, longueurs, syntaxe, etc.) et cas particuliers. Il est difficile d'arriver à tout prévoir.
+
+--> Les tests d’approbation dépendent du format exact du message, ce qui rend les tests sensibles à la moindre modification.
+
+--> La gestion des encodages UTF-8 peut poser problème, comme pendant la lecture des fichiers d’approbation (accents).
