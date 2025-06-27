@@ -1,0 +1,102 @@
+1| Créez d'abord cette structure problématique pour comprendre les enjeux.
+
+Quels problèmes voyez-vous dans cette organisation ?
+--> Tout est mélangé : code, tests, et les différentes parties de code entre elles.
+
+Comment un nouveau développeur s'y retrouverait-il ?
+--> Il ne pourrait pas car trop fouilli
+
+Comment lancer tous les tests d'un coup ?
+--> en lançant le dossier
+
+5| Testez ces commandes et notez les différences
+
+--> pytest : Tous les tests sont lancés et on sait qu'il passe de manière globale
+
+--> pytest -v : Tous les tests sont lancés et on sait pour chaque test s'il est passé ou non et sa couverture de tests
+
+--> pytest tests/test_book.py : Seuls les tests du fichiers test_book.py sont lancés et on sait s'ils passent ou non dans la globalité
+
+--> pytest tests/test_book.py::TestBookCreation::test_create_valid_book : Seul le test test_create_valid_book est lancé
+
+6| Analysez le rapport
+
+Quel pourcentage de couverture avez-vous ?
+--> 79%
+
+Quelles lignes ne sont pas testées ? Pourquoi ?
+Les lignes return et raises. Car ce sont les résultats des tests finalement et donc ils ne sont pas à prévoir dans les tests
+
+Comment améliorer la couverture ?
+En ignorant ces lignes inutiles et en ajoutant des tests.
+
+7| Analyser votre organisation
+
+1. Structure des tests :
+   Vos tests suivent-ils la même organisation que le code source ?
+   --> Oui !
+   Les noms de fichiers sont-ils cohérents ?
+   --> Oui ! book - test_book
+2. Nommage des tests :
+   Peut-on comprendre ce que teste chaque fonction sans lire le code ?
+   --> Oui ! test_borrow_already_borrowed_book_fails test qui gère l'emprunt d'un livre déjà emprunté et qui doit donc échouer
+   Les classes de test regroupent-elles logiquement les tests ?
+   --> Oui ! TestBookCreation pour les test qui gèrent la création des livres - TestBookBorrowing qui gèrent les emprunts de livres
+3. Couverture :
+   Quelles parties du code ne sont jamais testées ?
+   --> les raises et les returns
+   Y a-t-il des tests redondants ?
+   --> il ne me semble pas
+4. Automatisation :
+   Combien de commandes faut-il pour lancer tous les tests ?
+   --> Une seule : pytest
+   Un nouveau développeur peut-il facilement contribuer ?
+   --> Oui car tout est bien organisé en terme de structure et de procédure + compréhensible
+
+# Projet Bibliothèque
+
+Une application de gestion de livres, utilisateurs et emprunts, avec couverture de tests automatisés.
+
+## Installation
+
+# TODO: Instructions d'installation
+
+Assurez-vous d'avoir **Python 3.9+** installé, puis :
+
+```bash
+pip install -r requirements.txt
+
+## Tests
+
+# TODO: Comment lancer les tests
+
+make test
+
+## Couverture
+
+# TODO: Comment générer la couverture
+
+make coverage
+
+## Structure
+
+# TODO: Expliquez l'organisation du code
+bibliotheque_projet/
+│
+├── src/
+│   └── bibliotheque/
+│       ├── __init__.py
+│       ├── book.py        # Classe Book : titre, auteur, ISBN, emprunt
+│       ├── user.py        # Classe User : nom, email, livres empruntés
+│       └── library.py     # Classe Library : gestion des livres et utilisateurs
+│
+├── tests/
+│   ├── test_book.py       # Tests pour la classe Book
+│   ├── test_user.py       # Tests pour la classe User
+│   └── test_library.py    # Tests pour la classe Library
+│
+├── requirements.txt       # Dépendances Python
+├── Makefile               # Tâches pour tests, couverture, nettoyage
+├── pytest.ini             # Configuration Pytest
+└── README.md              # Ce fichier - intructions et réponses aux questions du tp
+```
