@@ -1,5 +1,5 @@
 import pytest
-from generation_email import generation
+from src.generation import generation
 
 # ------------------ TESTS VALIDES ------------------
 
