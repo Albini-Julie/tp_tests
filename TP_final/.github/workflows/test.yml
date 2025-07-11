@@ -1,0 +1,45 @@
+name: Tests et Qualité
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, "3.10", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov codecov
+
+      - name: Run unit tests
+        run: |
+          pytest tests/unit --cov=src/task_manager --cov-report=term-missing
+
+      - name: Run integration tests
+        run: |
+          pytest tests/integration --cov=src/task_manager --cov-append
+
+      - name: Generate coverage report
+        run: |
+          pytest --cov=src/task_manager --cov-report=html
+
+      - name: Upload coverage to Codecov
+        if: success() && github.event_name != 'pull_request'
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-upload

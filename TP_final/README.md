@@ -19,5 +19,3 @@ Questions d'analyse :
 
 Définissez les noms des fichiers et justifiez vos choix :
 --> J'ai choisi d'appeler mes fichiers task.py, manager.py et services.py car ce sont des noms clairs, qui permettent en une seule lecture de comprendre leur rôle dans le projet. Au niveau des fichiers de tests, j'ai choisi de les appeler test_task.py, test_manager.py et test_services.py car ces noms sont clairs et permettent de faire rapidement le lien entre les fichiers sources dont nous avons parlé juste avant, et leurs fichiers de tests respectifs. L'architecture est ainsi structurées, lisible, et on comprend directement l'utilité et le rôle des fichiers sans avoir besoin d'aller chercher à l'intérieur ce qu'ils font.
-
-### Étape 10 : Atteindre 95% de couverture
