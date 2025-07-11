@@ -16,6 +16,7 @@ class Status(Enum):
     IN_PROGRESS = "IN_PROGRESS"
     DONE = "DONE"
     CANCELLED = "CANCELLED"
+    COMPLETED = "COMPLETED"
 
 
 class Task:

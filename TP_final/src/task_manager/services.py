@@ -3,6 +3,7 @@ import csv
 from datetime import datetime
 from typing import List
 from .task import Task
+from src.task_manager.task import Status
 
 
 class EmailService:
@@ -43,9 +44,10 @@ class ReportService:
         ]
 
         return {
-            "date": date_str,
-            "total_completed": len(completed_today),
-            "tasks": [t.to_dict() for t in completed_today]
+            "date": datetime.now().date().isoformat(),
+            "tasks": [t.to_dict() for t in tasks],
+            "total_tasks": len(tasks),
+            "total_completed": len([t for t in tasks if t.status == Status.COMPLETED])
         }
 
     def export_tasks_csv(self, tasks: List[Task], filename: str):

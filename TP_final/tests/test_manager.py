@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch, mock_open
+from unittest.mock import mock_open, patch
 import json
 
 from src.task_manager.manager import TaskManager
@@ -78,26 +78,19 @@ class TestTaskManagerPersistence:
         mock_file.assert_called_once_with("test_tasks.json", "w", encoding="utf-8")
         assert mock_json_dump.called
 
-    @patch('builtins.open', new_callable=mock_open)
-    @patch('json.load')
-    def test_load_from_file_success(self, mock_json_load, mock_file):
+    @patch('os.path.exists', return_value=True)
+    @patch('builtins.open', new_callable=mock_open, read_data='[{"id": "t1", "title": "Mock Task", "description": "", "priority": "MEDIUM", "status": "TODO", "created_at": "2025-07-11T10:00:00", "completed_at": null, "project_id": null}]')
+    def test_load_from_file_success(self, mock_file, mock_exists):
         """Test chargement réussi"""
-        mock_json_load.return_value = [{
-            "id": "t1",
-            "title": "Mock Task",
-            "description": "",
-            "priority": "MEDIUM",
-            "status": "TODO",
-            "created_at": "2025-07-11T10:00:00",
-            "completed_at": None,
-            "project_id": None
-        }]
-        self.manager.load_from_file()
-        assert len(self.manager.tasks) == 1
-        assert self.manager.tasks[0].title == "Mock Task"
+        manager = TaskManager("test_tasks.json")
+        manager.load_from_file()
+        
+        assert len(manager.tasks) == 1
+        assert manager.tasks[0].title == "Mock Task"
 
     @patch('builtins.open', side_effect=FileNotFoundError)
     def test_load_from_nonexistent_file(self, mock_file):
         """Test chargement fichier inexistant"""
-        self.manager.load_from_file()
-        assert len(self.manager.tasks) == 0
+        manager = TaskManager("test_tasks.json")
+        manager.load_from_file()
+        assert len(manager.tasks) == 0
