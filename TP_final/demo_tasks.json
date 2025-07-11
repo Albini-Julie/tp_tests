@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ea65ea04-312d-42fc-864b-dd0d2461ff1d",
+    "title": "Faire les courses",
+    "description": "Acheter fruits et l\u00e9gumes",
+    "priority": "HIGH",
+    "status": "COMPLETED",
+    "created_at": "2025-07-11T12:14:07.500528",
+    "completed_at": null,
+    "project_id": null
+  },
+  {
+    "id": "b1e71e01-f572-4f42-82c8-59a926c048bc",
+    "title": "Pr\u00e9parer pr\u00e9sentation",
+    "description": "Slides pour r\u00e9union lundi",
+    "priority": "MEDIUM",
+    "status": "TODO",
+    "created_at": "2025-07-11T12:14:07.500559",
+    "completed_at": null,
+    "project_id": null
+  },
+  {
+    "id": "a9c7c4c1-f4df-4063-9e50-2b0a2fc618b3",
+    "title": "Appeler client",
+    "description": "Discuter des d\u00e9lais",
+    "priority": "LOW",
+    "status": "TODO",
+    "created_at": "2025-07-11T12:14:07.500565",
+    "completed_at": null,
+    "project_id": null
+  }
+]
