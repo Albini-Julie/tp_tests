@@ -83,3 +83,32 @@ class TestReportService:
         handle = mock_file()
         written = "".join(call.args[0] for call in handle.write.call_args_list)
         assert "title" in written and "Tâche 1" in written
+
+## ¨Pour augmenter la couverure
+
+def test_export_tasks_csv_ioerror(monkeypatch):
+    service = ReportService()
+    tasks = [Task("Test task")]
+
+    def raise_ioerror(*args, **kwargs):
+        raise IOError("Erreur simulation ouverture fichier")
+
+    monkeypatch.setattr("builtins.open", raise_ioerror)
+
+
+    service.export_tasks_csv(tasks, "fakefile.csv")
+
+def test_send_completion_notification_invalid_email():
+    service = EmailService()
+    with pytest.raises(ValueError, match="Adresse email invalide"):
+        service.send_completion_notification("invalid-email", "Tâche test")
+
+def test_is_valid_email():
+    service = EmailService()
+    assert service._is_valid_email("test@example.com")
+    assert not service._is_valid_email("invalid-email")
+
+def test_send_completion_notification_success():
+    service = EmailService()
+    result = service.send_completion_notification("valid@example.com", "Ma tâche")
+    assert result is True

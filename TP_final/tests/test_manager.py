@@ -94,3 +94,75 @@ class TestTaskManagerPersistence:
         manager = TaskManager("test_tasks.json")
         manager.load_from_file()
         assert len(manager.tasks) == 0
+
+## Pour atteindre la couverture
+
+def test_add_task_invalid_title_raises():
+    manager = TaskManager()
+    with pytest.raises(ValueError):
+        manager.add_task("") 
+    with pytest.raises(ValueError):
+        manager.add_task(None)  
+
+
+@patch('builtins.open', new_callable=mock_open)
+def test_save_to_file_ioerror(mock_file):
+    manager = TaskManager()
+    manager.add_task("Titre valide")
+    mock_file.side_effect = IOError("Erreur écriture")
+    with patch('json.dump') as mock_json_dump:
+        manager.save_to_file()
+
+
+
+@patch('builtins.open', new_callable=mock_open, read_data='not a json')
+def test_load_from_file_jsondecodeerror(mock_file):
+    manager = TaskManager()
+    with patch('json.load', side_effect=json.JSONDecodeError("msg", "doc", 0)):
+        manager.load_from_file()
+
+    assert manager.tasks == []
+
+
+def test_get_tasks_by_status_empty():
+    manager = TaskManager()
+    assert manager.get_tasks_by_status(Status.TODO) == []
+
+
+def test_get_tasks_by_priority_empty():
+    manager = TaskManager()
+    assert manager.get_tasks_by_priority(Priority.HIGH) == []
+
+
+def test_get_statistics_empty_and_nonempty():
+    manager = TaskManager()
+    stats = manager.get_statistics()
+    assert stats['total_tasks'] == 0
+    assert stats['completed_tasks'] == 0
+    for p in Priority:
+        assert stats['tasks_by_priority'][p.name] == 0
+    for s in Status:
+        assert stats['tasks_by_status'][s.name] == 0
+
+    tid = manager.add_task("Tâche 1", priority=Priority.HIGH)
+    task = manager.get_task(tid)
+    task.mark_completed()
+    tid2 = manager.add_task("Tâche 2", priority=Priority.LOW)
+    stats = manager.get_statistics()
+    assert stats['total_tasks'] == 2
+    assert stats['completed_tasks'] == 1
+    assert stats['tasks_by_priority'][Priority.HIGH.name] == 1
+    assert stats['tasks_by_priority'][Priority.LOW.name] == 1
+
+def test_add_task_invalid_title_raises():
+    manager = TaskManager()
+    with pytest.raises(ValueError):
+        manager.add_task("")  
+    with pytest.raises(ValueError):
+        manager.add_task(None)  
+
+
+def test_delete_task_nonexistent_returns_false():
+    manager = TaskManager()
+    result = manager.delete_task("id-inexistant")
+    assert result is False
