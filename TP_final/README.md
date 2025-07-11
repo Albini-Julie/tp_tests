@@ -1,4 +1,72 @@
-### Phase 1 : Analyse et conception
+### Concept
+
+Il s'agit d'une application permettant de gérer des tâches et des projets. Chaque tâche possède un titre, une priorité, un statut (TODO, IN_PROGRESS, DONE), et peut être associée à un projet. L'application permet :
+
+- d’ajouter, modifier, supprimer des tâches ;
+
+- de les marquer comme complètes ou en cours ;
+
+- d’exporter les tâches au format CSV ;
+
+- de générer des rapports journaliers (nombre de tâches, tâches complétées, répartition par statut/priorité) ;
+
+- et de simuler l'envoi de rappels par e-mail (via print, à mocker en test).
+
+Le code est intégralement testé avec pytest, en utilisant des mocks pour isoler les services externes (fichier, date, e-mail, etc.).
+
+### Architecture du projet
+
+TP_final/
+├── src/ --> les fichiers sources
+│ └── task_manager/
+│ ├── manager.py
+│ ├── task.py
+│ └── services.py
+├── tests/ --> les fichiers de tests
+│ ├── unit/
+│ └── integration/
+├── demo.py --> Exemples concrets
+├── Makefile --> Commandes
+├── requirements.txt
+└── .github/workflows/test.yml
+
+### Pré-requis
+
+- Python **3.10+** (testé avec Python 3.13)
+- `pip` pour la gestion des paquets
+- make pour lancer les commandes
+
+### Utilisation - commandes principales
+
+Aller dans TP_final
+
+- installer les dépendances
+  --> make install
+- Pour lancer les tests
+  --> make test
+- Pour créer la couverture
+  --> make coverage
+- Lancer la demo
+  --> python demo.py
+
+### Couverture
+
+## Name Stmts Miss Cover Missing
+
+src\task_manager\_\_init\_\_.py 0 0 100%
+src\task_manager\manager.py 49 5 90% 31-32, 52-54
+src\task_manager\services.py 37 0 100%
+src\task_manager\task.py 49 0 100%
+
+---
+
+TOTAL 135 5 96%
+Coverage HTML written to dir htmlcov
+=================================== 33 passed in 0.28s ===================================
+
+### Réponses aux questions
+
+Phase 1 : Analyse et conception
 
 Questions d'analyse :
 
